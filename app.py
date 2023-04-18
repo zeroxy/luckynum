@@ -2,8 +2,8 @@ from flask import Flask
 app = Flask('app')
 import numpy as np
 from pprint import pprint
-np.set_printoptions(precision=4)
-np.set_printoptions(formatter={'int':lambda x : f'{x: 6}'})
+np.set_printoptions(precision=3)
+np.set_printoptions(formatter={'int':lambda x : f'{x: 3}'})
  
 import urllib.request as httpcl
 import json
@@ -88,7 +88,7 @@ def get_lucky_nums(label, temp_choic_probs):
     result_nums, r_idx, case_cnt = np.unique(temp, return_counts=True, return_index= True)
 
     sorted_idx = np.argsort(case_cnt)[-5:]
-    resultstr = resultstr + f"duplicate count : {case_cnt[sorted_idx]}\n"
+    resultstr = resultstr + f"duplicate count : {case_cnt[sorted_idx]} / {np.sum(case_cnt)} \n"
     result = result[ r_idx[sorted_idx]]
     
     resultstr = resultstr + f"{result}\n"
@@ -156,6 +156,7 @@ starttime = lasttime
 pre_resultstr = ""
 crawlNo=[]
 prob_table = np.zeros(9)
+print("get probtable")
 probs = get_probs() #1086008. / 8145060.  # 숫자 1이 포함될 확률
 sample_cnt = 100000       # sample game 수
 game_contain_no_1 = np.random.rand(sample_cnt)<= probs  # sample game 수 만큼 수행 했을때 1이 포함된 게임을 True 외엔 False
@@ -167,7 +168,7 @@ nums, case_cnt = np.unique(cumsum_game_cnt[game_contain_no_1], return_counts=Tru
 for idx,x in enumerate(nums):
     prob_table[x-1] = case_cnt[idx]
 prob_table = prob_table/np.sum(prob_table)
-
+print("get probtable end !!")
 refresh_backdata()
 
 
