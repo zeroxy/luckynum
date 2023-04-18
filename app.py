@@ -145,7 +145,7 @@ global crawlNo
 
 lasttime = get_recent_game_no()
 
-starttime = lasttime-10
+starttime = lasttime-9
 
 pre_resultstr = ""
 crawlNo=[]
