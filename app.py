@@ -148,10 +148,14 @@ starttime = lasttime-10
 
 pre_resultstr = ""
 crawlNo=[]
-cpucnt = cpu_count()
-multipool = Parallel(n_jobs=(cpucnt*4))
-poolfn = delayed(get_lotto)
-crawlNo = multipool(poolfn(x) for x in range(starttime, lasttime) )
+# cpucnt = cpu_count()
+# multipool = Parallel(n_jobs=(cpucnt*4))
+# poolfn = delayed(get_lotto)
+# crawlNo = multipool(poolfn(x) for x in range(starttime, lasttime) )
+for x in range(starttime, lasttime) :
+    tempcrawl = get_lotto(x)
+    print(tempcrawl)
+    crawlNo.append(tempcrawl)
 sorted(crawlNo, key=lambda x : x['no'])
 pre_resultstr = pre_resultstr+ "\n".join([f"{x}" for x in crawlNo])+"\n"
 print(pre_resultstr)
