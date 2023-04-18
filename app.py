@@ -15,6 +15,7 @@ def refresh_backdata():
     global starttime
     global pre_resultstr
     global crawlNo
+    global prob_table
     if lasttime == get_recent_game_no():
         return
     print("#### refresh back data ####")
@@ -29,6 +30,17 @@ def refresh_backdata():
     sorted(crawlNo, key=lambda x : x['no'])
     pre_resultstr = pre_resultstr+ "\n".join([f"{x}" for x in crawlNo])+"\n"
     print(pre_resultstr)
+    probs = 1086008 / 8145060  # 숫자 1이 포함될 확률
+    sample_cnt = 1000000       # sample game 수
+    game_contain_no_1 = np.random.rand(sample_cnt)<= probs  # sample game 수 만큼 수행 했을때 1이 포함된 게임을 True 외엔 False
+    #print((aa<=probs)*1)
+    limit_game_gap = 9  # 최근 n 게임에 대한 통계..(카운트)
+    cumsum_game_cnt = np.cumsum(game_contain_no_1)
+    cumsum_game_cnt[limit_game_gap:] -= cumsum_game_cnt[:-limit_game_gap]
+    nums, case_cnt = np.unique(cumsum_game_cnt[game_contain_no_1], return_counts=True)
+    for idx,x in enumerate(nums):
+        prob_table[x-1] = case_cnt[idx]
+    prob_table = prob_table/np.sum(prob_table)
     return
 
 def print_lotto_beautiful(games):
@@ -77,7 +89,7 @@ def get_lucky_nums(label, temp_choic_probs):
     resultstr = resultstr + f"{label}  ( min : {np.min(temp_choic_probs):.3f} , max : {np.max(temp_choic_probs):.3f} , sum : { np.sum(temp_choic_probs):.3f})\n"
     resultstr = resultstr + f"{temp_choic_probs}\n"
 
-    result_game_no = 200
+    result_game_no = 20000
     result = np.zeros((result_game_no,6), dtype=np.int64)
 
     for x in range(result_game_no):
@@ -115,19 +127,8 @@ def get_lucky_number():
     global starttime
     global pre_resultstr
     global crawlNo
+    global prob_table
     resultstr = ""
-    probs = 1086008 / 8145060  # 숫자 1이 포함될 확률
-    sample_cnt = 20000000       # sample game 수
-    game_contain_no_1 = np.random.rand(sample_cnt)<= probs  # sample game 수 만큼 수행 했을때 1이 포함된 게임을 True 외엔 False
-    #print((aa<=probs)*1)
-    limit_game_gap = 9  # 최근 n 게임에 대한 통계..(카운트)
-    cumsum_game_cnt = np.cumsum(game_contain_no_1)
-    cumsum_game_cnt[limit_game_gap:] -= cumsum_game_cnt[:-limit_game_gap]
-    nums, case_cnt = np.unique(cumsum_game_cnt[game_contain_no_1], return_counts=True)
-    prob_table = np.zeros(max(nums))
-    for idx,x in enumerate(nums):
-        prob_table[x-1] = case_cnt[idx]
-    prob_table = prob_table/np.sum(prob_table)
     
     resultstr = resultstr+ f"{nums}" +"\n"
     resultstr = resultstr+ f"{case_cnt}" +"\n"
@@ -158,11 +159,13 @@ global lasttime
 global starttime
 global pre_resultstr
 global crawlNo
+global prob_table
 
 lasttime = 1
 starttime = lasttime
 pre_resultstr = ""
 crawlNo=[]
+prob_table = np.zeros(9)
 
 refresh_backdata()
 
@@ -177,7 +180,5 @@ def hello_world():
 if __name__ == "__main__" :
     get_lucky_number()
     #app.run(host='0.0.0.0', port=8080)
-
-
 
 
