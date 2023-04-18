@@ -62,7 +62,7 @@ def get_lucky_number():
         resultstr = resultstr + f"{label}  ( min : {np.min(temp_choic_probs):.3f} , max : {np.max(temp_choic_probs):.3f} , sum : { np.sum(temp_choic_probs):.3f})\n"
         resultstr = resultstr + f"{temp_choic_probs}\n"
     
-        result_game_no = 100_000
+        result_game_no = 1000
         result = np.zeros((result_game_no,6), dtype=np.int64)
 
         for x in range(result_game_no):
