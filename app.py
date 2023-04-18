@@ -57,7 +57,7 @@ def get_lucky_nums(label, temp_choic_probs):
     resultstr = resultstr + f"{label}  ( min : {np.min(temp_choic_probs):.3f} , max : {np.max(temp_choic_probs):.3f} , sum : { np.sum(temp_choic_probs):.3f})\n"
     resultstr = resultstr + f"{temp_choic_probs}\n"
 
-    result_game_no = 100_000
+    result_game_no = 1000
     result = np.zeros((result_game_no,6), dtype=np.int64)
 
     for x in range(result_game_no):
@@ -99,6 +99,7 @@ def get_lucky_number():
     global starttime
     global pre_resultstr
     global crawlNo
+    resultstr = ''
     probs = 1086008 / 8145060  # 숫자 1이 포함될 확률
     sample_cnt = 20000000       # sample game 수
     game_contain_no_1 = np.random.rand(sample_cnt)<= probs  # sample game 수 만큼 수행 했을때 1이 포함된 게임을 True 외엔 False
