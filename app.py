@@ -79,7 +79,7 @@ def get_lucky_nums(label, temp_choic_probs):
     resultstr = resultstr + f"{label}  ( min : {np.min(temp_choic_probs):.3f} , max : {np.max(temp_choic_probs):.3f} , sum : { np.sum(temp_choic_probs):.3f})\n"
     resultstr = resultstr + f"{temp_choic_probs}\n"
 
-    result_game_no = 20000
+    result_game_no = 8000
     result = np.zeros((result_game_no,6), dtype=np.int64)
 
     for x in range(result_game_no):
