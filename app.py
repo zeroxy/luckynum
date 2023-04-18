@@ -115,6 +115,7 @@ def get_lucky_number():
     global starttime
     global pre_resultstr
     global crawlNo
+    resultstr = ""
     probs = 1086008 / 8145060  # 숫자 1이 포함될 확률
     sample_cnt = 20000000       # sample game 수
     game_contain_no_1 = np.random.rand(sample_cnt)<= probs  # sample game 수 만큼 수행 했을때 1이 포함된 게임을 True 외엔 False
