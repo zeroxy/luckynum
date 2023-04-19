@@ -167,8 +167,8 @@ limit_game_gap = 9  # 최근 n 게임에 대한 통계..(카운트)
 #cumsum_game_cnt = np.cumsum(game_contain_no_1)
 #cumsum_game_cnt[limit_game_gap:] -= cumsum_game_cnt[:-limit_game_gap]
 #nums, case_cnt = np.unique(cumsum_game_cnt[game_contain_no_1], return_counts=True)
-for idx,x in enumerate(nums):
-    prob_table[x-1] = case_cnt[idx]
+#for idx,x in enumerate(nums):
+#    prob_table[x-1] = case_cnt[idx]
 prob_table = prob_table/np.sum(prob_table)
 print("get probtable end !!\n", prob_table)
 refresh_backdata()
