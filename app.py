@@ -79,7 +79,7 @@ def get_lucky_nums(label, temp_choic_probs):
     resultstr = resultstr + f"{label}  ( min : {np.min(temp_choic_probs):.3f} , max : {np.max(temp_choic_probs):.3f} , sum : { np.sum(temp_choic_probs):.3f})\n"
     resultstr = resultstr + f"{temp_choic_probs}\n"
 
-    result_game_no = 8000
+    result_game_no = 3000
     result = np.zeros((result_game_no,6), dtype=np.int64)
 
     for x in range(result_game_no):
@@ -124,7 +124,7 @@ def get_lucky_number():
     resultstr = resultstr+ f"{case_cnt}" +"\n"
 
     history_cnt = np.array([x['nums'] for x in crawlNo[1-limit_game_gap:]])
-    probs_bias = 0.2
+    probs_bias = 0.05
     choice_probs = np.ones(45) * probs_bias
     history_num, history_cnt = np.unique(history_cnt, return_counts=True)
     for idx,x in enumerate(history_num):
