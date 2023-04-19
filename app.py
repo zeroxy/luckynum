@@ -125,10 +125,11 @@ def get_lucky_number():
 
     history_cnt = np.array([x['nums'] for x in crawlNo[1-limit_game_gap:]])
     probs_bias = 0.05
-    choice_probs = np.ones(45) * probs_bias
+    choice_probs = (np.ones(45) * prob_table[0]) 
     history_num, history_cnt = np.unique(history_cnt, return_counts=True)
     for idx,x in enumerate(history_num):
-        choice_probs[x-1] += prob_table[history_cnt[idx]-1]
+        choice_probs[x-1] = prob_table[history_cnt[idx]-1]
+    choice_probs = choice_probs + probs_bias
     softmax_choice_probs = softmax(np.exp(choice_probs))
     softmax_non_exp_choice_probs = softmax(choice_probs)
     
@@ -155,20 +156,21 @@ lasttime = 1
 starttime = lasttime
 pre_resultstr = ""
 crawlNo=[]
-prob_table = np.zeros(9)
-print("get probtable")
-probs = get_probs() #1086008. / 8145060.  # 숫자 1이 포함될 확률
-sample_cnt = 100000       # sample game 수
-game_contain_no_1 = np.random.rand(sample_cnt)<= probs  # sample game 수 만큼 수행 했을때 1이 포함된 게임을 True 외엔 False
-#print((aa<=probs)*1)
+prob_table = np.array([4266., 5163., 2769., 859., 153., 14., 4., 0., 0.] )
+#prob_table = np.zeros(9)
+#print("get probtable")
+#probs = get_probs() #1086008. / 8145060.  # 숫자 1이 포함될 확률
+#sample_cnt = 100000       # sample game 수
+#game_contain_no_1 = np.random.rand(sample_cnt)<= probs  # sample game 수 만큼 수행 했을때 1이 포함된 게임을 True 외엔 False
+##print((aa<=probs)*1)
 limit_game_gap = 9  # 최근 n 게임에 대한 통계..(카운트)
-cumsum_game_cnt = np.cumsum(game_contain_no_1)
-cumsum_game_cnt[limit_game_gap:] -= cumsum_game_cnt[:-limit_game_gap]
-nums, case_cnt = np.unique(cumsum_game_cnt[game_contain_no_1], return_counts=True)
+#cumsum_game_cnt = np.cumsum(game_contain_no_1)
+#cumsum_game_cnt[limit_game_gap:] -= cumsum_game_cnt[:-limit_game_gap]
+#nums, case_cnt = np.unique(cumsum_game_cnt[game_contain_no_1], return_counts=True)
 for idx,x in enumerate(nums):
     prob_table[x-1] = case_cnt[idx]
 prob_table = prob_table/np.sum(prob_table)
-print("get probtable end !!")
+print("get probtable end !!\n", prob_table)
 refresh_backdata()
 
 
