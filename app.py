@@ -120,8 +120,8 @@ def get_lucky_number():
     global prob_table
     resultstr = ""
     
-    resultstr = resultstr+ f"{nums}" +"\n"
-    resultstr = resultstr+ f"{case_cnt}" +"\n"
+    #resultstr = resultstr+ f"{nums}" +"\n"
+    #resultstr = resultstr+ f"{case_cnt}" +"\n"
 
     history_cnt = np.array([x['nums'] for x in crawlNo[1-limit_game_gap:]])
     probs_bias = 0.05
