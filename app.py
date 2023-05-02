@@ -27,6 +27,7 @@ def refresh_backdata():
         tempcrawl = get_lotto(x)
         print(tempcrawl)
         crawlNo.append(tempcrawl)
+    crawlNo = [x for x in crawlNo if x['no'] != -1]
     sorted(crawlNo, key=lambda x : x['no'])
     pre_resultstr = pre_resultstr+ "\n".join([f"{x}" for x in crawlNo])+"\n"
     print(pre_resultstr)
@@ -40,9 +41,9 @@ def print_lotto_beautiful(games):
     for idx, x in enumerate(games):
         for y in x:
             printstr[idx] = printstr[idx][:y-1]+'X'+printstr[idx][y:]
-    column = 6
+    column = 7
     for row_no in range((45//column)+1):
-        row = [f"{x[row_no*column : row_no*column+column]:6}" for x in printstr]
+        row = [f"{x[row_no*column : row_no*column+column]:7}" for x in printstr]
         resultstr = resultstr + "  |  ".join(row) + "\n"
     return resultstr
 
@@ -56,7 +57,7 @@ def softmax(x):
 def get_lotto(no):
     r= json.load(httpcl.urlopen(f"https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo={no}"))
     if r['returnValue'] != 'success':
-        return None,None
+        return {'no':-1}
     crawl =  [r[f'drwtNo{x+1}'] for x in range(6)]
     crawl.sort()
     rstr = f"{r['drwNo']} {r['drwNoDate']} {crawl}"
