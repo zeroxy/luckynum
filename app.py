@@ -129,7 +129,7 @@ def get_lucky_number():
     choice_probs = (np.ones(45) * prob_table[0]) 
     history_num, history_cnt = np.unique(history_cnt, return_counts=True)
     for idx,x in enumerate(history_num):
-        choice_probs[x-1] = prob_table[history_cnt[idx]-1]
+        choice_probs[x-1] = prob_table[history_cnt[idx]]
     choice_probs = choice_probs + probs_bias
     softmax_choice_probs = softmax(np.exp(choice_probs))
     softmax_non_exp_choice_probs = softmax(choice_probs)
