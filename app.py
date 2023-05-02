@@ -136,6 +136,8 @@ def get_lucky_number():
     
     resultstr = resultstr+ "history_num, history_cnt" +"\n"
     resultstr = resultstr+ f"최근 {limit_game_gap-1}게임 동안 나온 숫자 종류 : {len(history_num)}, 변경이력 총 합 : {np.sum(history_cnt)}" +"\n"
+    for c,d in enumerate(history_num):
+        resultstr = resultstr + f"{d} -> {history_cnt[c]}\n"
     #resultstr = resultstr+ f"{' '.join([x for x in *zip(history_num,history_cnt )])}" +"\n"
     resultstr = resultstr+ f"choice_probs  ( bias : {probs_bias} , min : {np.min(choice_probs):.3f} , max : {np.max(choice_probs):.3f})" +"\n"
     resultstr = resultstr+ f"{choice_probs}" +"\n"
